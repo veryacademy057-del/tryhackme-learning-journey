@@ -1,176 +1,121 @@
-OWASP Top 10 2025 – Insecure Data Handling
-Overview
+# OWASP Top 10 2025 – Insecure Data Handling  
+## TryHackMe Learning Journey
 
-This repository documents my learning progress from the TryHackMe – Cyber Security 101 learning path, specifically covering OWASP Top 10 (2025): Insecure Data Handling.
+This repository documents my learning progress on **TryHackMe** through the room  
+**OWASP Top 10 2025: Insecure Data Handling**.
 
-In this room, I explored vulnerabilities related to application behaviour, user input handling, and data protection, including hands-on exploitation scenarios.
+This room focuses on vulnerabilities related to **application behavior and how applications process user input and data**, including design and implementation flaws that can lead to data leakage, unauthorized command execution, and system manipulation.
 
-Covered OWASP Categories
+---
 
-A04: Cryptographic Failures
+## 🎯 Room Overview
 
-A05: Injection
+- **Platform**: TryHackMe  
+- **Room Name**: OWASP Top 10 2025 – Insecure Data Handling  
+- **Level**: Beginner  
+- **Module**: Cyber Security 101  
 
-A08: Software or Data Integrity Failures
+### OWASP Top 10 Categories Covered:
+- **A04** – Cryptographic Failures  
+- **A05** – Injection  
+- **A08** – Software or Data Integrity Failures  
 
-Task 1 – Introduction
+---
 
-This room introduces three OWASP Top 10 (2025) categories related to insecure data handling.
-Each section includes:
+## 🧠 Learning Objectives
 
-Concept explanation
+After completing this room, I learned about:
 
-Mitigation strategies
+- What **Insecure Data Handling** is and its impact on application security
+- Cryptographic failures caused by weak algorithms or improper implementations
+- How **Injection attacks** work, especially **Server Side Template Injection (SSTI)**
+- Risks related to **Software & Data Integrity Failures**, including **Insecure Deserialization**
+- The importance of input validation, trust boundaries, and data integrity in applications
 
-Practical exploitation using a vulnerable web application
+---
 
-Environment setup was performed using:
+## 🧪 Task Summary & Flags
 
-TryHackMe AttackBox
+### 🔐 Task 2 – A04: Cryptographic Failures
+**Description:**  
+The application stores sensitive data using weak cryptographic mechanisms and a shared key.
 
-Deployed target virtual machines
+**Practical:**
+- Accessing a note-sharing application
+- Decrypting encrypted notes
+- Retrieving a hidden flag
 
-Task 2 – A04: Cryptographic Failures
-Description
-
-Cryptographic failures occur when sensitive data is improperly protected due to:
-
-Weak or outdated cryptographic algorithms (e.g. MD5, SHA1, DES)
-
-Plaintext or poorly hashed password storage
-
-Exposed encryption keys
-
-Custom or home-grown cryptography implementations
-
-Mitigation Techniques
-
-Use strong, modern algorithms (AES, RSA with proper key sizes)
-
-Hash passwords with slow hashing algorithms such as:
-
-bcrypt
-
-scrypt
-
-Argon2
-
-Never hardcode secrets or credentials in source code
-
-Use secure key management solutions and environment variables
-
-Practical Exploitation
-
-The practical demonstrated a note-sharing application that used a weak shared cryptographic key to protect encrypted notes.
-
-By exploiting the weak cryptographic implementation, all notes were decrypted successfully.
-
-Flag obtained:
+**Flag:**
 
 THM{WEAK_CRYPTO_FLAG}
 
-Task 3 – A05: Injection
-Description
 
-Injection vulnerabilities occur when user input is improperly handled and passed directly into:
+---
 
-Databases
+### 💉 Task 3 – A05: Injection (SSTI)
+**Description:**  
+The application fails to properly validate user input and is vulnerable to **Server Side Template Injection**.
 
-Operating system commands
+**Practical:**
+- Exploiting an SSTI vulnerability
+- Reading the `flag.txt` file on the server
 
-Template engines
-
-APIs or interpreters
-
-Common injection types include:
-
-SQL Injection
-
-Command Injection
-
-Server-Side Template Injection (SSTI)
-
-AI Prompt Injection
-
-Despite being a well-known vulnerability, injection remains a high-severity issue in 2025.
-
-Mitigation Techniques
-
-Treat all user input as untrusted
-
-Use prepared statements and parameterized queries
-
-Avoid passing user input directly to system shells
-
-Apply strict input validation and sanitization
-
-Enforce data types and escape dangerous characters
-
-Practical Exploitation
-
-This task demonstrated a Server-Side Template Injection (SSTI) vulnerability.
-
-By abusing the template rendering mechanism, I was able to read sensitive files from the server, including flag.txt.
-
-Flag obtained:
+**Flag:**
 
 THM{SSTI_FLAG_OBTAINED}
 
-Task 4 – A08: Software or Data Integrity Failures
-Description
 
-Software or Data Integrity Failures occur when applications trust data, updates, or code without verifying:
+---
 
-Authenticity
+### 📦 Task 4 – A08: Software or Data Integrity Failures
+**Description:**  
+The application processes serialized data without validation, leading to **Insecure Deserialization**.
 
-Integrity
+**Practical:**
+- Creating a malicious Python pickle payload
+- Executing the payload to read a sensitive file
 
-Source
-
-Examples include:
-
-Insecure deserialization
-
-Unverified software updates
-
-Trusting external scripts or configuration files
-
-Weak CI/CD pipeline security
-
-Mitigation Techniques
-
-Verify integrity using cryptographic hashes and signatures
-
-Enforce strict trust boundaries
-
-Secure CI/CD pipelines
-
-Avoid unsafe deserialization of untrusted data
-
-Practical Exploitation
-
-This task focused on a Python insecure deserialization (pickle) vulnerability.
-
-By crafting a malicious serialized payload, I was able to execute unintended behavior and read the contents of flag.txt.
-
-Flag obtained:
+**Flag:**
 
 THM{INSECURE_DESERIALIZATION}
 
-Key Takeaways
 
-OWASP Top 10 vulnerabilities remain highly relevant in modern applications
+---
 
-Weak cryptography, injection flaws, and insecure data handling are still common
+## 🛡️ Mitigation & Prevention
 
-Secure coding practices and proper validation are critical
+### A04 – Cryptographic Failures
+- Use modern and secure algorithms (bcrypt, Argon2, AES)
+- Avoid implementing custom cryptographic algorithms
+- Never store credentials in source code or repositories
 
-Hands-on exploitation greatly improves understanding of real-world risks
+### A05 – Injection
+- Use prepared statements and parameterized queries
+- Perform proper input validation and sanitization
+- Avoid passing user input directly to shells or template engines
 
-Learning Platform
+### A08 – Software or Data Integrity Failures
+- Verify the integrity of updates and data (checksums, signatures)
+- Never process serialized data from untrusted sources
+- Apply security controls within CI/CD pipelines
 
-TryHackMe
+---
 
-Learning Path: Cyber Security 101
+## 📚 Recommended TryHackMe Rooms
 
-Room: OWASP Top 10 2025 – Insecure Data Handling
+- Cryptographic Failures Module  
+- Injection Attacks Module  
+- Command Injection  
+- Insecure Deserialization  
+- Supply Chain Attack: Lottie  
+
+---
+
+## 🧭 Learning Progress
+
+This repository is part of my **cybersecurity learning journey** and will be continuously updated as I complete more TryHackMe rooms.
+
+> All write-ups are created **for educational and personal learning purposes only**.
+
+---
+
